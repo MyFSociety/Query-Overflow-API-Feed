@@ -1,0 +1,20 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_bin/
+pkg/
+vendor/
+
+# Compiled Go files
+*.test
+*.prof
+
+# Compiled executables
+*.exe
+*.test
+
+# Log files
+*.log
