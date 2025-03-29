@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"harry/query-overflow-feed/api/handlers"
+	"harry/query-overflow-feed/utils"
 )
 
 func NewServer() *gin.Engine {
@@ -18,12 +19,25 @@ func NewServer() *gin.Engine {
 
 	router := gin.Default()
 
-	// TODO: DB connection
+	// Define the route for the health check
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "pong"})
+	})
 
 	//  Define the route for the query feed handler
 	feeds := router.Group("/feeds")
 	{
+		// Middleware to validate the token for all routes in this group
+		feeds.Use(utils.ValidateToken)
+
+		// Define the routes for the feeds
 		feeds.GET("/query", handlers.QueryFeedHandler)
+		feeds.POST("/create", handlers.CreateFeedHandler)
+		feeds.GET("/get/:id", handlers.GetFeedHandler)
+		feeds.PUT("/update/:id", handlers.UpdateFeedHandler)
+		feeds.DELETE("/delete/:id", handlers.DeleteFeedHandler)
+
 	}
+
 	return router
 }

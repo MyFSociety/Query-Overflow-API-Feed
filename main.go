@@ -21,6 +21,7 @@ func main() {
 
 	// creating the server
 	server := server.NewServer()
+	
 
 	// running the server
 	log.Printf("Listening on port %s", "8080")
@@ -30,5 +31,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not start server: %s\n", err.Error())
 	}
+
+	log.Println("Server started successfully")
 
 }
